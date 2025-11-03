@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>방정혁 | 테크니컬 아티스트 포트폴리오</title>
+    <style>
+        /* --- 기본 스타일 초기화 --- */
+        body, h1, h2, h3, h4, ul, li, p, a {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* 섹션 공통 스타일 */
+        section {
+            padding: 60px 40px;
+            scroll-margin-top: 80px; 
+        }
+
+        /* --- 1. 헤더 (내비게이션 바) --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #1e1e1e;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        header .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+        header nav ul li a {
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        header nav ul li a:hover {
+            color: #007bff; /* 포인트 컬러 */
+        }
+
+        /* --- 2. 히어로 섹션 (메인) --- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 60vh;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .hero h1 .highlight {
+            color: #007bff;
+        }
+        
+        /* --- 공통 버튼 스타일 --- */
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- 3. About Me 섹션 --- */
+        #about {
+            background-color: #1a1a1a;
+            max-width: 960px;
+            margin: 40px auto;
+            border-radius: 8px;
+            text-align: center; /* 전체 텍스트 중앙 정렬 */
+        }
+        #about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        #about .about-content {
+            display: flex;
+            flex-direction: column; /* 모바일에서 세로 정렬 */
+            align-items: center; /* 중앙 정렬 */
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        #about .profile-image-container {
+            width: 180px; /* 이미지 컨테이너 크기 */
+            height: 180px;
+            border-radius: 50%; /* 원형으로 만듦 */
+            overflow: hidden; /* 넘치는 부분 자르기 */
+            box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.5), 0 0 0 10px rgba(0, 123, 255, 0.2); /* 푸른색 테두리 효과 */
+            flex-shrink: 0; /* 줄어들지 않도록 */
+        }
+        #about .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 잘리지 않고 꽉 채우도록 */
+            object-position: center top; /* 얼굴이 잘리지 않도록 위쪽으로 정렬 */
+        }
+        #about .intro {
+            font-size: 1.1rem;
+            text-align: center; /* 소개글 텍스트 중앙 정렬 */
+            max-width: 600px; /* 최대 너비 제한 */
+        }
+        #about h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            max-width: fit-content; /* 내용에 맞춰 너비 조절 */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .skills-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .skill-category {
+            flex-basis: 250px;
+            background-color: #252525;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .skill-category h4 {
+            font-size: 1.25rem;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .skill-category ul {
+            list-style: none;
+        }
+        .skill-category ul li {
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* --- 4. Work (Portfolio) 섹션 --- */
+        #work {
+            background-color: #121212;
+            text-align: center;
+        }
+        #work h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #007bff;
+        }
+        #work .subtitle {
+            font-size: 1.5rem;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        /* --- 프로젝트 갤러리 (Work 섹션 내) --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 80px auto;
+        }
+        .project-card {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .project-card-content {
+            padding: 20px;
+        }
+        .project-card-content h3 {
+            font-size: 1.4rem;
+            color: #007bff;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .project-card-content p {
+            font-size: 0.95rem;
+            color: #ccc;
+            text-align: left;
+        }
+
+        /* --- 유튜브 채널 프로모션 (Work 섹션 내) --- */
+        #work .channel-promo {
+            background-color: #252525;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        #work .channel-promo h4 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        #work .channel-promo p {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+        
+        /* --- 5. Activities (활동 내역) 섹션 --- */
+        #activities {
+            background-color: #1a1a1a;
+            max-width: 960px;
+            margin: 40px auto;
+            border-radius: 8px;
+        }
+        #activities h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #007bff;
+        }
+        .achievements-list {
+            list-style: none;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .achievements-list li {
+            background-color: #252525;
+            border-left: 5px solid #007bff;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+        .achievements-list li h4 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        .achievements-list li p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+        
+        /* 활동 내역 내부의 링크 버튼 */
+        .achievements-list li .activity-link-button {
+            display: inline-block;
+            background-color: transparent;
+            border: 1px solid #007bff;
+            color: #007bff;
+            padding: 5px 12px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .achievements-list li .activity-link-button:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        /* --- 6. Contact 섹션 --- */
+        #contact {
+            background-color: #1e1e1e;
+            text-align: center;
+        }
+        #contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        #contact p {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+        .contact-list {
+            list-style: none;
+        }
+        .contact-list li {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        .contact-list li a {
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+        .contact-list li a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* --- 7. Footer --- */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #121212;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+        }
+
+        /* --- 모달 (Lightbox) 스타일 (수정됨) --- */
+        .modal {
+            display: none; /* ✅ 기본 숨김 (이것만 남김) */
+            position: fixed;
+            z-index: 200;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            /* ❗️ display: flex;  <-- 이 줄이 삭제되었습니다! */
+            justify-content: center; /* (JS가 display:flex로 만들면 적용됨) */
+            align-items: center;   /* (JS가 display:flex로 만들면 적용됨) */
+            padding: 20px;
+        }
+        .modal-content {
+            background-color: #1a1a1a;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 900px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-out;
+            color: #ffffff;
+            text-align: left;
+        }
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .modal-content h3 {
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .modal-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        /* 모달 등장 애니메이션 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- 미디어 쿼리 (반응형 디자인) --- */
+        @media (min-width: 769px) { /* 데스크탑에서 이미지와 텍스트를 나란히 */
+            #about .about-content {
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start; /* 상단 정렬 */
+                text-align: left; /* 텍스트는 왼쪽 정렬 */
+            }
+            #about .intro {
+                text-align: left; /* 소개글 텍스트 왼쪽 정렬 */
+            }
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px 20px;
+                gap: 10px;
+            }
+            header nav ul {
+                gap: 15px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            section {
+                padding: 40px 20px;
+            }
+            #about .intro {
+                font-size: 1rem;
+            }
+            .skills-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .skill-category {
+                flex-basis: 90%;
+                width: 90%;
+            }
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+            .modal-content h3 {
+                font-size: 1.5rem;
+            }
+            .modal-content p {
+                font-size: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="#">방정혁</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#activities">Activities</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>
+                언리얼 엔진을 다루는<br>
+                <span class="highlight">테크니컬 아티스트</span> 방정혁입니다.
+            </h1>
+            <a href="#work" class="cta-button">포트폴리오 보기</a>
+        </section>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="profile-image-container">
+                    <img src="./profile_suit_enhanced.png" alt="방정혁 프로필 이미지" class="profile-image">
+                </div>
+                <p class="intro">
+                    기술과 아트를 연결하여 몰입감 넘치는 비주얼을 구현하는 테크니컬 아티스트입니다.<br>
+                    효율적인 파이프라인 구축과 실시간 렌더링 최적화에 강점이 있습니다.
+                </p>
+            </div>
+            
+            <h3>My Skills</h3>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h4>전문 (Advanced)</h4>
+                    <ul>
+                        <li>Unreal Engine</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>중급 (Proficient)</h4>
+                    <ul>
+                        <li>Blender</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>기초 (Basic)</h4>
+                    <ul>
+                        <li>Substance Painter</li>
+                        <li>Premiere Pro</li>
+                        <li>After Effects</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="work">
+            <h2>My Work & Portfolio</h2>
+
+            <h3 class="subtitle">Projects</h3>
+            <div class="project-grid">
+                
+                <div class="project-card" onclick="openModal('natureModal')">
+                    <img src="./nature_thumbnail.png" alt="Nature Project Thumbnail">
+                    <div class="project-card-content">
+                        <h3>Nature</h3>
+                        <p>해외 여행에서 영감을 받은 자연 경관 재창조</p>
+                    </div>
+                </div>
+                
+            </div>
+
+            <h3 class="subtitle">YouTube Channel</h3>
+            <div class="channel-promo">
+                <h4>YouTube: "가상현실학과생"</h4>
+                <p>
+                    저의 모든 작업물과 튜토리얼 영상은<br>
+                    운영 중인 유튜브 채널에서 확인하실 수 있습니다.
+                </p>
+                
+                <a href="https://www.youtube.com/@가상현실학과생" target="_blank" class="cta-button">
+                    채널 방문하기 &rarr;
+                </a>
+            </div>
+        </section>
+        
+        <section id="activities">
+            <h2>Activities & Achievements</h2>
+            <ul class="achievements-list">
+                <li>
+                    <h4>🏆 가상현실학과 전시회 우수상 수상</h4>
+                    <p>창의적인 VR 콘텐츠 기획 및 구현 능력을 인정받았습니다.</p>
+                </li>
+                <li>
+                    <h4>📜 충남 컨텐츠 아카데미 VP 수료</h4>
+                    <p>Virtual Production(VP) 파이프라인에 대한 전문 지식을 습득하였습니다.</p>
+                    <a href="https://youtu.be/bUnus53a_lI" target="_blank" class="activity-link-button">
+                        프로젝트 영상 보기 &rarr;
+                    </a>
+                </li>
+                
+                <li>
+                    <h4>🖥️ Unity 실감형 컨텐츠 수료</h4>
+                    <p>Unreal Engine 5를 사용하여 MR(Mixed Reality) 콘텐츠를 제작하였습니다.</p>
+                    <a href="https://youtube.com/shorts/SPevowQVfV4?feature=share" target="_blank" class="activity-link-button">
+                        프로젝트 영상 보기 &rarr;
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <p>언제든지 편하게 연락주세요!</p>
+            <ul class="contact-list">
+                <li>
+                    <strong>Email: </strong>
+                    <a href="mailto:john021227@naver.com">john021227@naver.com</a>
+                </li>
+                <li>
+                    <strong>Phone: </strong>
+                    <a href="tel:010-4043-2712">010-4043-2712</a>
+                </li>
+            </ul>
+        </section>
+        
+    </main>
+
+    <footer>
+        <p>&copy; 2025 방정혁. All rights reserved.</p>
+    </footer>
+
+    
+    <div id="natureModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('natureModal')">&times;</span>
+            <img src="./SceneScreenShot.png" alt="Nature Project Image"> 
+            <h3>Nature</h3>
+            <p>
+                해외 여행을 통해 경험했던 아름다운 자연 환경에서 영감을 받아,<br>
+                나만의 상상력을 더해 재창조한 가상 공간 프로젝트입니다.
+                언리얼 엔진의 강력한 렌더링 기능과 다양한 애셋을 활용하여,<br>
+                실제와 같은 몰입감과 고유한 분위기를 구현하는 데 중점을 두었습니다.
+            </p>
+        </div>
+    </div>
+
+    
+    <script>
+        // 모달 열기 함수
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+
+        // 모달 닫기 함수
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // 모달 외부 클릭 시 닫기
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        };
+
+        // 헤더 메뉴 클릭 시 부드럽게 스크롤
+        document.querySelectorAll('header nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+    </script>
+
+</body>
+</html>
